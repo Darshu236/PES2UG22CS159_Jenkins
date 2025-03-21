@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building project..."
-                bat 'g++ hello.cpp -o hello_exec.exe -mconsole'
+                bat 'g++ hello.cpp -o hello_exec.exe'
             }
         }
         stage('Test') {
