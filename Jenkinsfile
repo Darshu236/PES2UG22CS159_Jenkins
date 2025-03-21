@@ -4,30 +4,29 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Building project..."
-                bat 'g++ hello.cpp -o hello_exec.exe'
+                sh 'cd main && make'
+                echo 'Build Stage Successful'
             }
         }
+
         stage('Test') {
             steps {
-                echo "Running tests..."
-                bat '.\\hello_exec.exe'
+                sh 'cd main && ./hello_exec_nonexistent'  // Error: Using a non-existent executable
+                echo 'Test Stage Successful'
             }
         }
+
         stage('Deploy') {
             steps {
-                echo "Deploying application..."
-                bat 'copy hello_exec.exe C:\\DeploymentFolder'
+                sh 'echo "Deploying application..."'
+                echo 'Deployment Successful'
             }
         }
     }
 
     post {
         failure {
-            echo "Pipeline failed!"
-        }
-        success {
-            echo "Pipeline executed successfully!"
+            echo 'Pipeline failed'
         }
     }
 }
